@@ -1,0 +1,160 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Lava-Hub",
+    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    LoadingTitle = "I hacked roblox 👌",
+    LoadingSubtitle = "by lava85halst",
+    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+ 
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+ 
+    ConfigurationSaving = {
+       Enabled = false,
+       FolderName = nil,
+       FileName = "Lava private HUB"
+    },
+ 
+    Discord = {
+       Enabled = false,
+       Invite = "noinvitelink",
+       RememberJoins = true
+    },
+ 
+    KeySystem = false,
+    KeySettings = {
+       Title = "Untitled",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided",
+       FileName = "Key",
+       SaveKey = true,
+       GrabKeyFromSite = false,
+       Key = {"Hello"}
+    }
+ })
+
+ local MainTab = Window:CreateTab("🏠 Home", nil)
+ local MainSection = MainTab:CreateSection("Main")
+
+ Rayfield:Notify({
+    Title = "Execute Script Succefly!",
+    Content = "Good Job, bro",
+    Duration = 5,
+    Image = nil,
+ })
+
+ local Button = MainTab:CreateButton({
+    Name = "Infinity Jump",
+    Callback = function()
+                --G,LFPDMX[]
+-- //~ F to toggle ~\ --
+-- I have no idea who made this!
+_G.infinjump = true
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+Mouse.KeyDown:connect(function(k)
+if _G.infinjump then
+if k:byte() == 32 then
+Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+Humanoid:ChangeState("Jumping")
+wait(0.1)
+Humanoid:ChangeState("Seated")
+end
+end
+end)
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+Mouse.KeyDown:connect(function(k)
+k = k:lower()
+if k == "f" then
+if _G.infinjump == true then
+_G.infinjump = false
+else
+_G.infinjump = true
+end
+end
+end)
+    end,
+ })
+
+ local Slider = MainTab:CreateSlider({
+    Name = "WalkSpeed (BUG!)",
+    Range = {0, 300},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Flag = "Slider1", 
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (value)
+    end,
+ })
+
+ local Dropdown = MainTab:CreateDropdown({
+    Name = "Select Area (SOON)",
+    Options = {"soon...","soon..."},
+    CurrentOption = {"Blue command"},
+    MultipleOptions = false,
+    Flag = "Teleport", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Options)
+    -- The function that takes place when the selected option is changed
+    -- The variable (Options) is a table of strings for the current selected options
+    end,
+ })
+
+ local VisualsTab = Window:CreateTab("visuals👻", nil) -- Title, Image
+ local Section = VisualsTab:CreateSection("Esp player")
+
+ local Button = VisualsTab:CreateButton({
+    Name = "Esp",
+    Callback = function()
+        local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local runService = game:GetService("RunService")
+ 
+-- Function to create the ESP box with team color
+local function createESPBox(player)
+    local highlight = Instance.new("Highlight")
+    highlight.Name = player.Name .. "_ESP"
+    highlight.Adornee = player.Character
+    highlight.FillTransparency = 1 -- Makes the fill of the box invisible
+    
+    -- Check if the player is on a team and apply the team color
+    if player.Team then
+        highlight.OutlineColor = player.Team.TeamColor.Color -- Set the box color to the team's color
+    else
+        highlight.OutlineColor = Color3.new(1, 1, 1) -- Default color (white) if not in a team
+    end
+    
+    highlight.OutlineTransparency = 0 -- Fully visible outline
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop -- Can be seen through walls
+    highlight.Parent = player.Character
+end
+ 
+-- Add ESP to all players
+local function addESP()
+    for _, player in pairs(players:GetPlayers()) do
+        if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            -- Check if ESP already exists to avoid duplication
+            if not player.Character:FindFirstChild(player.Name .. "_ESP") then
+                createESPBox(player)
+            end
+        end
+    end
+end
+ 
+-- Run the ESP adding function continuously
+runService.RenderStepped:Connect(function()
+    addESP()
+end)
+ 
+-- Remove ESP if a player leaves
+players.PlayerRemoving:Connect(function(player)
+    if player.Character and player.Character:FindFirstChild(player.Name .. "_ESP") then
+        player.Character[player.Name .. "_ESP"]:Destroy()
+    end
+end)
+ 
+    end,
+ })
